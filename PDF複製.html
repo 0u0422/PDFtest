@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>附錄</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
+    <!--PDFMake套件-->
+    <script src="node_modules/pdfmake/build/pdfmake.min.js"></script>
+    <!--PDFMake字體套件-->
+    <!--有新增字體的話會需要把字體檔放在node_modiles/pdfmake/examples/fonts，燃後在node_modiles/pdfmake打開終端機執行node build-vfs.js "./examples/fonts"轉成PDFMake能用的格式，執行指令需要下載node.js，windeows的安裝檔可以跟我拿，安裝完要重開機-->
+    <script src="node_modules/pdfmake/build/vfs_fonts.js"></script>
+    <!--把html轉成PDFMake格式的套件-->
+
+    <!-- 引入 pdfmake 和相关字体 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <!-- 引入 pdfjs -->
+    <!-- <script type="text/javascript" src="js/pdf.js"></script> -->
+    <!-- <script type="text/javascript" src="js/pdf.worker.js"></script> -->
+    <script src="https://github.com/mozilla/pdf.js"></script>
+
+</head>
+
+<body>
+    <div id="pdfMakeDisplay"></div>
+
+    <script>
+        // const ctx = jQuery('#myChart');
+        //建立統計圖
+        var dd = {
+            // pageOrientation: 'portrait',
+            content: [{
+                style: 'tableExample',
+                bold: true,
+                table: {
+                    fontSize: 12,
+                    body: [
+                        [{ text: '附錄一', border: [true, true, true, true] }, { text: '資源名單與運用（可參考使用）', border: [false, false, false, false] }]
+                    ]
+                }
+            },
+            {
+                style: 'tableExample',
+                table: {
+                    widths: [100, 230, '*'],
+                    fontSize: 12,
+                    body: [
+                        [{ text: '類型', fillColor: '#fbd4b3', bold: true, style: 'tableText', alignment: 'center' }, { text: '單位', fillColor: '#fbd4b3', bold: true, style: 'tableText', alignment: 'center' }, { text: '功能', fillColor: '#fbd4b3', bold: true, style: 'tableText', alignment: 'center' }],
+                        [{ text: '社政類', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }],
+                        [{ text: '警政類', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }],
+                        [{ text: '教育類', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }],
+                        [{ text: '民政類', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }],
+                        [{ text: '衛政類', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }],
+                        [{ text: '其他政府類', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }],
+                        [{ text: '民間類', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }],
+                        [{ text: '其他', style: 'tableHeader', alignment: 'center' }, '', { text: '□有共同辦理防暴業務\n□有提供物資\n□有提供建議\n□有支援講師\n□其他：', style: 'tableText' }]
+                    ]
+                }
+            }
+            ],
+            styles: {
+                tableExample: {
+                    margin: [0, 5, 0, 5]
+                },
+                tableHeader: {
+                    bold: true,
+                    fillColor: '#fce9da',
+                    margin: [5, 5, 5, 5],
+                    alignment: 'center'
+                },
+                tableText: {
+                    margin: [5, 5, 5, 5]
+                }
+            },
+            // defaultStyle: {
+            //     font: 'DFKai',
+            //     fontSize: 12
+            // }
+        };
+        // 生成 PDF 数据
+        var pdfBuffer;
+        pdfMake.createPdf(dd).getBuffer(function (buffer) {
+            pdfBuffer = buffer;
+            // 显示 PDF
+            // displayPdfPreview();
+        });
+
+
+        function displayPdfPreview(pdfBuffer) {
+            var dataUrl = 'data:application/pdf;base64,' + pdfBuffer.toString('base64');
+
+            // 創建一個 iframe 元素
+            var pdfIframe = document.createElement('iframe');
+            // 設置 iframe 的 src
+            pdfIframe.src = dataUrl;
+            // 設置 iframe 的樣式
+            pdfIframe.style.width = '100%';
+            pdfIframe.style.height = '100%';
+            // 將 iframe 添加到指定的元素中
+            document.getElementById('pdfMakeDisplay').appendChild(pdfIframe);
+        }
+
+
+    </script>
+
+</body>
+
+</html>
